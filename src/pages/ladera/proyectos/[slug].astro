@@ -1,0 +1,21 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ActionLink from '../../../components/ActionLink.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { projects } from '../../../data/projects';
+export function getStaticPaths() {
+  return projects.map((project, index) => ({ params: { slug: project.slug }, props: { project, next: projects[(index + 1) % projects.length] } }));
+}
+const { project, next } = Astro.props;
+---
+<Layout title={`${project.name} — Ladera`} description={`${project.name}, ${project.location}. Proyecto conceptual del estudio ficticio Ladera.`}>
+  <Header />
+  <main id="contenido" class="project-page wrap">
+    <ActionLink href="/ladera/proyectos/" icon="back" compact>Todos los proyectos</ActionLink>
+    <div class="project-page-heading"><h1>{project.name}</h1><p>{project.location}</p></div>
+    <img class="project-detail-image" src={`/images/${project.image}`} alt={`${project.name} en ${project.location}`} width="1400" height="1100" fetchpriority="high" />
+    <div class="project-page-bottom"><ActionLink href="/ladera/#contacto">Hablemos de tu proyecto</ActionLink><ActionLink href={`/ladera/proyectos/${next.slug}/`}>Siguiente: {next.name}</ActionLink></div>
+  </main>
+  <Footer />
+</Layout>

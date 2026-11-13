@@ -1,0 +1,20 @@
+---
+import ActionLink from './ActionLink.astro';
+const services = [
+  { title: 'Arquitectura residencial', image: '/images/service-architecture.jpg', alt: 'Vivienda de piedra y madera integrada en un paisaje montañoso', description: 'Una vivienda que responde a tu terreno y a tu manera de vivir. Diseñamos los espacios desde la primera idea hasta los planos para construir.', includes: ['Concepto y distribución', 'Diseño adaptado al terreno'] },
+  { title: 'Diseño de interiores', image: '/images/casa-valvere.jpg', alt: 'Sala con materiales naturales, madera y luz de jardín', description: 'La luz, los materiales y cada espacio, pensados como un conjunto. Interiores que acompañan la arquitectura y tu vida cotidiana.', includes: ['Materiales e iluminación', 'Integración de los espacios'] },
+  { title: 'Planificación técnica', image: '/images/planning-diagram.svg', alt: 'Esquema conceptual de una planta arquitectónica con ejes y cotas', description: 'El diseño, resuelto en sus detalles. Desarrollamos los planos y coordinamos el proyecto con modelos digitales BIM.', includes: ['Planos para construir', 'Coordinación en BIM'] },
+];
+---
+<section id="servicios" class="services-section wrap" aria-labelledby="services-title">
+  <div class="services-heading"><h2 id="services-title">Arquitectura e interiores.</h2><p>La misma mirada, desde el espacio<br />hasta el último detalle.</p></div>
+  <div class="services-grid">
+    {services.map(service => (
+      <article class="service">
+        <div class="service-visual"><img src={service.image} alt={service.alt} width="786" height="640" loading="lazy" decoding="async" /></div>
+        <div class="service-copy"><h3>{service.title}</h3><p>{service.description}</p><ul>{service.includes.map(item => <li>{item}</li>)}</ul></div>
+      </article>
+    ))}
+  </div>
+  <div class="services-footer"><p>Encontramos juntos lo que tu proyecto necesita.</p><ActionLink href="#contacto">Hablemos de tu proyecto</ActionLink></div>
+</section>

@@ -1,0 +1,57 @@
+---
+import BrandSymbol from './BrandSymbol.astro';
+import '../styles/entry-reveal.css';
+---
+<div class="entry-reveal" aria-hidden="true">
+  <div class="entry-reveal__curtain entry-reveal__curtain--orange"></div>
+  <div class="entry-reveal__curtain entry-reveal__curtain--petrol"></div>
+  <div class="entry-reveal__logo"><BrandSymbol size={72} /></div>
+</div>
+<script>
+  const root = document.documentElement;
+  const overlay = document.querySelector<HTMLElement>('.entry-reveal');
+  const page = document.querySelector<HTMLElement>('.ladera-page');
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let finished = false;
+  let fallback: number | undefined;
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    if (fallback) window.clearTimeout(fallback);
+    root.classList.remove('ladera-entering', 'ladera-revealing');
+    if (page) page.inert = false;
+    overlay?.remove();
+    try { sessionStorage.setItem('ladera:entry-seen', '1'); } catch {}
+    document.removeEventListener('keydown', onKey, true);
+    preference.removeEventListener('change', onPreference);
+    window.removeEventListener('ladera:entry-end', finish);
+    window.dispatchEvent(new Event('ladera:entry-end'));
+  }
+
+  function onKey(event: KeyboardEvent) {
+    if (event.key === 'Escape' || event.key === 'Tab') finish();
+  }
+  function onPreference() { if (preference.matches) finish(); }
+
+  if (!root.classList.contains('ladera-entering') || preference.matches) {
+    finish();
+  } else {
+    if (page) page.inert = true;
+    document.addEventListener('keydown', onKey, true);
+    preference.addEventListener('change', onPreference);
+    window.addEventListener('ladera:entry-end', finish);
+    window.addEventListener('pagehide', finish, { once: true });
+    overlay?.addEventListener('animationend', event => {
+      if (event.target instanceof Element && event.target.classList.contains('entry-reveal__curtain--orange')) finish();
+    });
+
+    const hero = document.querySelector<HTMLImageElement>('.hero-image');
+    const ready = Promise.all([hero?.decode().catch(() => {}), document.fonts.ready]);
+    Promise.race([ready, new Promise(resolve => window.setTimeout(resolve, 300))]).then(() => {
+      if (finished) return;
+      root.classList.add('ladera-revealing');
+      fallback = window.setTimeout(finish, 2500);
+    });
+  }
+</script>

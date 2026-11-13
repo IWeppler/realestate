@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import ActionLink from '../../components/ActionLink.astro';
+import DemoConsultation from '../../components/DemoConsultation.astro';
+const works = [
+  { name: 'Casa Horizonte', location: 'Ciudad de Guatemala', image: 'service-planning.jpg' },
+  { name: 'Refugio del lago', location: 'San Pedro, Atitlán', image: 'casa-valle-verde.jpg' },
+  { name: 'Patio de luz', location: 'Antigua Guatemala', image: 'casa-antigua-azul.jpg' },
+];
+---
+<Layout title="Estudio Sur — Arquitectura y paisaje" description="Estudio Sur es una identidad ficticia de arquitectura y paisaje en Guatemala. Ejemplo de diseño web por Ignacio Weppler.">
+  <div class="sur-site">
+    <header class="sur-header wrap"><a class="sur-brand" href="/estudio-sur/">Estudio Sur<span>Arquitectura y paisaje</span></a><nav aria-label="Navegación principal"><a href="#obras">Obras</a><a href="#mirada">El estudio</a><a href="#sur-contacto">Contacto</a></nav><a class="sur-back" href="/">Todos los ejemplos <span aria-hidden="true">↗</span></a></header>
+    <main id="contenido">
+      <section class="sur-hero wrap"><div class="sur-hero-copy"><p>Guatemala, Centroamérica</p><h1>El lugar<br />hace<br />el hogar.</h1><a href="#obras" class="sur-discover">Descubrir las obras <span aria-hidden="true">↓</span></a></div><figure><img src="/images/service-interiors.jpg" alt="Vivienda abierta al paisaje entre árboles" width="786" height="982" fetchpriority="high" /><figcaption>Casa entre árboles, Guatemala</figcaption></figure></section>
+      <section id="mirada" class="sur-intro wrap"><p>El estudio</p><div><h2>Construir una relación<br />con lo que nos rodea.</h2><p>Somos Estudio Sur. Pensamos la arquitectura desde el paisaje, la luz y la vida cotidiana. Cada proyecto busca su propia manera de pertenecer a un lugar.</p><p>Diseñamos viviendas, interiores y espacios de encuentro en Guatemala y Centroamérica.</p></div></section>
+      <section id="obras" class="sur-works wrap"><div class="sur-section-heading"><h2>Obras elegidas</h2><p>Una selección conceptual</p></div><div class="sur-work-grid">{works.map((work,index) => <figure class:list={['sur-work',{'sur-work-wide':index===0}]}><img src={`/images/${work.image}`} alt={`${work.name}, ${work.location}`} width="1200" height="1000" loading="lazy" /><figcaption><h3>{work.name}</h3><p>{work.location}</p></figcaption></figure>)}</div></section>
+      <section class="sur-services wrap"><h2>Una mirada integral.</h2><div><article><h3>Arquitectura</h3><p>Viviendas que encuentran su forma en el terreno, el clima y las personas.</p></article><article><h3>Interiores</h3><p>Materiales, luz y proporciones para acompañar lo cotidiano.</p></article><article><h3>Paisaje</h3><p>El jardín y los espacios abiertos como parte de la experiencia de habitar.</p></article></div></section>
+      <section id="sur-contacto" class="sur-contact wrap"><p>Una primera conversación</p><h2>¿Qué lugar<br />tenés en mente?</h2><ActionLink href="#consulta">Conversemos</ActionLink><div><span>hola@estudiosur.example</span><span>Ciudad de Guatemala, Guatemala</span></div></section>
+    </main>
+    <Footer name="Estudio Sur" home="/estudio-sur/" />
+    <DemoConsultation />
+  </div>
+</Layout>

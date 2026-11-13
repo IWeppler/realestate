@@ -1,11 +1,17 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Footer from '../components/Footer.astro';
+import ActionLink from '../components/ActionLink.astro';
+import { studios } from '../data/studios';
 ---
-
-<Layout>
-	<Welcome />
+<Layout title="Arquitect — Arquitectura e inmobiliarias por Ignacio Weppler" description="Una colección de sitios web de arquitectura e inmobiliarias: ejemplos conceptuales y propuestas independientes de rediseño. Diseño y desarrollo por Ignacio Weppler.">
+  <div class="showcase">
+    <header class="showcase-header wrap"><a href="/" class="showcase-wordmark">Arquitect</a><ActionLink href="https://ignacioweppler.dev" compact>Mi portfolio</ActionLink></header>
+    <main id="contenido" class="showcase-main wrap">
+      <div class="showcase-intro"><h1>Distintas formas<br />de imaginar un espacio.</h1><p>Una colección de sitios de arquitectura e inmobiliarias.<br />Cinco identidades, cinco maneras de habitar la web.</p></div>
+      <div class="showcase-grid">{studios.map(studio => <a class="showcase-project" href={studio.href}><div class="showcase-preview"><img src={studio.image} alt={`Vista previa del sitio ${studio.name}`} width="1200" height="833" /></div><div class="showcase-project-title"><h2>{studio.name}</h2><span aria-hidden="true">↗</span></div><p class="showcase-style">{studio.style}</p><p>{studio.description}</p><span class="showcase-visit">Explorar ejemplo</span></a>)}</div>
+      <aside class="showcase-about"><p>Ejemplos conceptuales y propuestas independientes de rediseño.</p><p>¿Buscás una web para tu estudio o inmobiliaria? <a href="https://ignacioweppler.dev">Conocé mi trabajo.</a></p></aside>
+    </main>
+    <Footer name="Arquitect" home="/" />
+  </div>
 </Layout>

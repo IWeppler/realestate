@@ -1,0 +1,6 @@
+---
+import BrandSymbol from './BrandSymbol.astro';
+interface Props { name?: string; }
+const { name = 'Ladera' } = Astro.props;
+---
+<span class="wordmark"><BrandSymbol /><span>{name}</span></span>

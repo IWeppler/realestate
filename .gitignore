@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Reference downloads and local visual checks
+scripts/castas-cache/
+scripts/castas-*.jpg
+scripts/castas-*-inspection.json
+scripts/castas-inspection.json
+scripts/paulazzo-*.jpg
+scripts/paulazzo-photo-candidates/

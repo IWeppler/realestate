@@ -1,0 +1,113 @@
+<script>
+  import Lenis from 'lenis';
+  import 'lenis/dist/lenis.css';
+
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let lenis: Lenis | undefined;
+  const animations = new Set<Animation>();
+
+  function updateMotion() {
+    lenis?.destroy();
+    lenis = undefined;
+    if (motionPreference.matches) {
+      animations.forEach(animation => animation.finish());
+      return;
+    }
+    lenis = new Lenis({
+      autoRaf: true,
+      duration: 1.1,
+      smoothWheel: true,
+      syncTouch: false,
+    });
+    if (document.documentElement.classList.contains('ladera-entering')) lenis.stop();
+  }
+
+  updateMotion();
+  motionPreference.addEventListener('change', updateMotion);
+  window.addEventListener('ladera:entry-end', () => { lenis?.start(); lenis?.resize(); });
+
+  document.addEventListener('click', event => {
+    if (!lenis || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
+    if (!link || link.classList.contains('skip-link') || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+    const url = new URL(link.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || url.search !== location.search || !url.hash) return;
+    let id: string;
+    try { id = decodeURIComponent(url.hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
+    if (!target) return;
+    event.preventDefault();
+    // Keyboard navigation and browser restoration can move the native scroll
+    // position while wheel inertia is finishing. Start anchors from that position.
+    lenis.scrollTo(window.scrollY, { immediate: true });
+    if (location.hash !== url.hash) history.pushState(null, '', url.hash);
+    lenis.scrollTo(target, {
+      duration: 1.15,
+      onComplete: () => {
+        const needsTabIndex = !target.hasAttribute('tabindex');
+        if (needsTabIndex) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+        if (needsTabIndex) target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+      },
+    });
+  });
+
+  // Native details remain usable without JavaScript. Animate their actual
+  // height so long descriptions work at every screen width.
+  const accordions = new Map<HTMLDetailsElement, (open: boolean) => void>();
+  document.querySelectorAll<HTMLDetailsElement>('.process-list details').forEach(details => {
+    const summary = details.querySelector('summary');
+    if (!summary) return;
+    let expanded = details.open;
+    let animation: Animation | undefined;
+    details.dataset.enhanced = '';
+
+    function setExpanded(open: boolean) {
+      const from = details.getBoundingClientRect().height;
+      if (animation) {
+        animations.delete(animation);
+        animation.cancel();
+      }
+      expanded = open;
+      details.classList.toggle('is-expanded', open);
+      if (motionPreference.matches) {
+        details.open = open;
+        details.style.removeProperty('overflow');
+        return;
+      }
+
+      // Keep the contents mounted during closing, then restore native state.
+      details.open = true;
+      const to = open ? details.getBoundingClientRect().height : summary!.getBoundingClientRect().height + 1;
+      details.style.overflow = 'hidden';
+      animation = details.animate([{ height: `${from}px` }, { height: `${to}px` }], {
+        duration: 360,
+        easing: 'cubic-bezier(.22, 1, .36, 1)',
+      });
+      animations.add(animation);
+      animation.onfinish = () => {
+        details.open = expanded;
+        details.style.removeProperty('overflow');
+        if (animation) animations.delete(animation);
+        animation = undefined;
+        lenis?.resize();
+      };
+    }
+
+    details.classList.toggle('is-expanded', expanded);
+    accordions.set(details, setExpanded);
+    summary.addEventListener('click', event => {
+      event.preventDefault();
+      const open = !expanded;
+      if (open && details.parentElement?.hasAttribute('data-accordion-group')) {
+        details.parentElement.querySelectorAll<HTMLDetailsElement>('details').forEach(sibling => {
+          if (sibling !== details && sibling.classList.contains('is-expanded')) accordions.get(sibling)?.(false);
+        });
+      }
+      setExpanded(open);
+    });
+  });
+
+  // Preserve the latest layout after returning from the browser's page cache.
+  window.addEventListener('pageshow', () => lenis?.resize());
+</script>

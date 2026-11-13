@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 786 640" fill="none">
+  <rect width="786" height="640" fill="#e5e6de"/>
+  <g stroke="#102930" opacity=".13" stroke-width="1"><path d="M0 80h786M0 160h786M0 240h786M0 320h786M0 400h786M0 480h786M0 560h786M73 0v640M153 0v640M233 0v640M313 0v640M393 0v640M473 0v640M553 0v640M633 0v640M713 0v640"/></g>
+  <g stroke="#102930" stroke-linecap="square">
+    <path d="M153 128h480v384H153zM153 320h192M409 320h224M393 128v128M393 320v192M153 448h128" stroke-width="7"/>
+    <path d="M393 256a64 64 0 0 1-64 64M393 256v64h-64M345 320a64 64 0 0 0 64 64M345 320v64h64" stroke-width="1.5"/>
+    <path d="M185 160h144v100H185zM185 180h144M249 160v20M443 163h152v60H443zM443 240h60v43h-60zM529 240h66v43h-66zM441 384h152v88H441zM460 395h50v66h-50zM524 395h50v66h-50z" stroke-width="1.5"/>
+    <path d="M178 350h100v65H178zM189 360h78M188 405h78M316 390h43v80h-43z" stroke-width="1.5"/>
+    <path d="M120 95h546M120 550h546M116 96v452M665 96v452" stroke-width="1"/>
+    <path d="m145 87 16 16m224-16 16 16m224-16 16 16M145 542l16 16m224-16 16 16m224-16 16 16M108 120l16 16m-16 176 16 16m-16 176 16 16M657 120l16 16m-16 376 16 16" stroke-width="1.5"/>
+    <path d="M153 72v47M393 72v47M633 72v47M153 523v47M393 523v47M633 523v47M92 128h49M92 320h49M92 512h49M645 128h40M645 512h40" stroke-width="1"/>
+    <path d="M84 320h620M393 48v545" opacity=".25" stroke-dasharray="10 8"/>
+  </g>
+  <path d="M630 74v35M613 91h35" stroke="#b84200" stroke-width="2"/>
+  <text x="153" y="603" font-family="Arial,sans-serif" font-size="13" fill="#59686a">Esquema conceptual</text>
+</svg>

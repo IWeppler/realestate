@@ -1,0 +1,18 @@
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const { chromium } = require('C:/Users/estel/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules/playwright');
+const browser = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
+const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+const errors = [];
+page.on('pageerror', error => errors.push(error.message));
+page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
+await page.goto('http://localhost:4321/grounded/', { waitUntil: 'networkidle' });
+await page.waitForTimeout(7000);
+await page.screenshot({ path: 'public/previews/grounded.jpg', type: 'jpeg', quality: 85 });
+console.log(JSON.stringify({ title: await page.title(), heading: await page.locator('h1').allTextContents(), errors }, null, 2));
+await page.setViewportSize({ width: 390, height: 844 });
+await page.reload({ waitUntil: 'networkidle' });
+await page.waitForTimeout(2000);
+await page.screenshot({ path: 'dist/grounded-mobile-check.png' });
+console.log('Mobile width: ' + await page.evaluate(() => JSON.stringify({ viewport: innerWidth, document: document.documentElement.scrollWidth })));
+await browser.close();

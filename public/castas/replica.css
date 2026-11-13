@@ -1,0 +1,38 @@
+/* Static Framer markup retains the reference layout; interactions are local. */
+[style*="opacity:0"], [style*="opacity: 0"] { opacity: 1 !important; }
+[data-framer-component-type="RichText"] span { opacity: 1 !important; transform: none !important; filter: none !important; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.castas-credit { padding: 20px 24px; background: #d1ccbf; color: #1a1a1a; font: 12px/1.6 Arial,sans-serif; text-align: center; }
+.castas-credit a { color: inherit; text-decoration: underline; }
+.castas-demo-status { padding: 16px; background: #d1ccbf; color: #1a1a1a; font: 14px/1.6 Arial,sans-serif; }
+[data-framer-name="Checkout"], #__framer-badge-container { display: none !important; }
+[data-framer-name="Service"] [data-framer-name="Content"] { transform: none !important; }
+[data-framer-name="Service"] { cursor: pointer; }
+[data-framer-name="Service"] img { transition: transform .5s ease; }
+[data-framer-name="Service"]:hover img { transform: scale(1.04); }
+html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+[data-framer-name="Menu"][tabindex] { cursor: pointer; }
+.castas-menu, .castas-gallery { border: 0; color: #1a1a1a; background: #eeede8; padding: 32px; width: min(580px, calc(100% - 32px)); max-height: calc(100svh - 32px); }
+.castas-menu::backdrop, .castas-gallery::backdrop { background: #191919aa; backdrop-filter: blur(8px); }
+.castas-menu nav { display: grid; gap: 18px; margin: 36px 0; }
+.castas-menu nav a { color: inherit; text-decoration: none; font: 400 56px/1.1 'Libre Caslon Condensed', Georgia, serif; }
+.castas-menu nav a:hover { color: #84795e; }
+.castas-menu small { font: 12px/1.6 'Geist', sans-serif; }
+.castas-close { display:block; margin-left: auto; border: 1px solid #aaa; background: transparent; color: inherit; padding: 10px 16px; cursor:pointer; font: 14px 'Geist',sans-serif; }
+.castas-gallery { width: min(1200px, calc(100% - 32px)); }
+.castas-gallery img { display:block; width:100%; height:auto; margin-top:20px; }
+.castas-faq-answer { padding: 0 28px 28px; max-width: 70ch; font: 16px/1.7 'Geist', sans-serif; color: #545454; }
+[aria-expanded="true"] svg { transform: rotate(45deg); }
+.castas-selected { background: #d1ccbf !important; }
+.castas-contact-heading { scroll-margin-top: 100px; }
+.framer-98dovt-container { max-width: calc(100vw - 48px); }
+.framer-98dovt-container a { max-width: 100%; }
+.framer-98dovt-container p { white-space: normal !important; }
+.framer-98dovt-container { opacity:0 !important; visibility:hidden; transition:opacity .3s; }
+.castas-advisor-visible .framer-98dovt-container { opacity:1 !important; visibility:visible; }
+.castas-empty-properties { margin:32px auto; padding:24px; max-width:1320px; font:16px/1.6 'Geist', sans-serif; }
+[data-framer-name="Arrow"] { display:grid !important; place-items:center; }
+[data-framer-name="Arrow"]::after { content:'↗'; color:#fff; mix-blend-mode:difference; font:16px/1 Arial,sans-serif; }
+[data-framer-name="Arrow"] > div { display:none; }
+@media(max-width:600px) { .framer-98dovt-container { display:none !important; } }
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation:none !important; transition:none !important; } }

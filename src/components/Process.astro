@@ -1,0 +1,24 @@
+---
+const steps = [
+  { title: 'Reunión inicial', description: 'Definimos necesidades, estilo y presupuesto. Conocemos tu terreno y cómo te gustaría vivir en tu nuevo hogar.' },
+  { title: 'Diseño preliminar', description: 'Damos forma a las primeras ideas: distribución, volúmenes y relación con el entorno. Revisamos la propuesta contigo antes de avanzar.' },
+  { title: 'Planificación técnica', description: 'Desarrollamos los planos y coordinamos los detalles del proyecto para llevar el diseño a una solución lista para construir.' },
+  { title: 'Presupuesto', description: 'Revisamos el alcance y los costos del proyecto para tomar decisiones con claridad y mantener el diseño alineado con tu inversión.' },
+  { title: 'Entrega digital', description: 'Recibes la documentación del proyecto en formato digital, con los planos y la información acordada para la siguiente etapa.' },
+];
+---
+<section id="proceso" class="process-section wrap" aria-labelledby="process-title">
+  <div class="process-heading">
+    <p class="section-label">Cómo trabajamos</p>
+    <h2 id="process-title">Un proceso claro.<br />De principio a fin.</h2>
+    <p class="process-intro">De la primera conversación a los planos de tu hogar. Avanzamos contigo, una etapa a la vez.</p>
+  </div>
+  <div class="process-list" data-accordion-group>
+    {steps.map((step, index) => (
+      <details open={index === 0}>
+        <summary><span class="process-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><h3>{step.title}</h3><span class="process-toggle" aria-hidden="true">+</span></summary>
+        <p>{step.description}</p>
+      </details>
+    ))}
+  </div>
+</section>

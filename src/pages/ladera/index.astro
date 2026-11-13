@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Process from '../../components/Process.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { featuredProjects } from '../../data/projects';
+import ActionLink from '../../components/ActionLink.astro';
+import Services from '../../components/Services.astro';
+import Studio from '../../components/Studio.astro';
+import DemoConsultation from '../../components/DemoConsultation.astro';
+import EntryReveal from '../../components/EntryReveal.astro';
+---
+
+<Layout intro>
+  <EntryReveal />
+  <div class="ladera-page">
+  <Header />
+  <main id="contenido">
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-image" src="/images/hero.jpg" alt="Fachada de Casa Umbral con ventanas de arco al atardecer" width="1672" height="941" fetchpriority="high" />
+      <div class="hero-shade"></div>
+      <div class="hero-content"><p>Arquitectura residencial e interiorismo</p><h1 id="hero-title">Espacios para<br />habitar mejor.</h1><ActionLink href="#proyectos" tone="light" icon="down" class="hero-link">Explorar proyectos</ActionLink></div>
+      <span class="hero-caption">Casa Umbral, El Salvador</span>
+    </section>
+    <section id="proyectos" class="projects-section wrap" aria-labelledby="projects-title">
+      <div class="section-heading"><h2 id="projects-title">Una forma de habitar.</h2><p>Una selección de nuestros proyectos</p></div>
+      <div class="project-grid">{featuredProjects.map(project => <ProjectCard project={project} />)}</div>
+      <div class="projects-more"><ActionLink href="/ladera/proyectos/">Ver todos los proyectos</ActionLink></div>
+    </section>
+    <Services />
+    <Studio />
+    <Process />
+    <section id="contacto" class="contact-section wrap" aria-labelledby="contact-title">
+      <div><p class="section-label">Tu próximo espacio</p><h2 id="contact-title">Empecemos con<br />una conversación.</h2><ActionLink variant="primary" class="contact-button" href="#consulta">Agendar una consulta</ActionLink></div>
+      <div class="contact-details"><span>hola@ladera.example</span><p>Ciudad de Guatemala, Guatemala</p></div>
+    </section>
+  </main>
+  <Footer />
+  <DemoConsultation />
+  </div>
+</Layout>

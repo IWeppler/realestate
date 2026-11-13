@@ -1,0 +1,11 @@
+---
+export function getStaticPaths() {
+  const pages = import.meta.glob('../../data/grounded/**/*.html', { query: '?raw', import: 'default', eager: true });
+  return Object.entries(pages).map(([file, html]) => ({
+    params: { path: file.replace('../../data/grounded/', '').replace(/(?:^|\/)index\.html$/, '') || undefined },
+    props: { html },
+  }));
+}
+const { html } = Astro.props;
+---
+<Fragment set:html={html} />

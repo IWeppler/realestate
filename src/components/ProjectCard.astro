@@ -1,0 +1,9 @@
+---
+import type { projects } from '../data/projects';
+interface Props { project: (typeof projects)[number]; }
+const { project } = Astro.props;
+---
+<a class="project" href={`/ladera/proyectos/${project.slug}/`}>
+  <div class="project-image"><img src={`/images/${project.image}`} alt={`${project.name}, ${project.location}`} width="1200" height="1000" loading="lazy" decoding="async" /></div>
+  <div class="project-info"><div><h3>{project.name}</h3><p>{project.location}</p></div><span class="project-arrow" aria-hidden="true">↗</span></div>
+</a>

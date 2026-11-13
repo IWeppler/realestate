@@ -1,0 +1,18 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ActionLink from '../../../components/ActionLink.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { projects } from '../../../data/projects';
+---
+<Layout title="Proyectos — Ladera" description="Proyectos conceptuales de Ladera, un estudio ficticio de arquitectura en Guatemala y Centroamérica.">
+  <Header />
+  <main id="contenido" class="collection-page wrap">
+    <ActionLink href="/ladera/#proyectos" icon="back" compact>Volver al inicio</ActionLink>
+    <div class="collection-heading"><h1>Nuestros proyectos.</h1><p>Arquitectura residencial e interiorismo<br />en Guatemala y Centroamérica.</p></div>
+    <div class="project-grid">{projects.map(project => <ProjectCard project={project} />)}</div>
+    <div class="collection-contact"><h2>¿Imaginamos tu próximo espacio?</h2><ActionLink href="/ladera/#contacto">Hablemos de tu proyecto</ActionLink></div>
+  </main>
+  <Footer />
+</Layout>
