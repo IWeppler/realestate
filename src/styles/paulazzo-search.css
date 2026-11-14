@@ -1,4 +1,4 @@
-.property-search { position:relative; z-index:3; padding:16px; gap:12px; border:1px solid #ffffff60; border-radius:9px; background:#fcfdfa; box-shadow:0 15px 50px #0b263324; }
+.property-search { position:relative; z-index:3; padding:8px; gap:12px; border:1px solid #ffffff60; border-radius:9px; background:#fcfdfa; box-shadow:0 15px 50px #0b263324; }
 .operation-options { padding:10px 13px; }
 .operation-options legend { margin-bottom:10px; font-size:11px; }
 .operation-options label span { padding:10px 17px; border-radius:5px; font-size:13px; }

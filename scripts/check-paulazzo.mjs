@@ -25,18 +25,23 @@ try {
   if (!(await page.locator('.hero-landscape').evaluate(img => img.currentSrc)).endsWith('/paulazzo/VCP.png')) throw new Error('Wrong desktop hero');
   await page.screenshot({ path: 'public/previews/paulazzo.jpg', quality: 88 });
   await page.screenshot({ path: 'scripts/paulazzo-desktop.jpg', fullPage: true, quality: 75 });
+  if (!await page.locator('.landing-content > section').first().evaluate(el => el.id === 'propiedades')) throw new Error('Properties must precede the introduction');
+  const originalCard = await page.locator('[data-property]').first().boundingBox();
+  for (const card of await page.locator('[data-property]').all()) {
+    if (await card.locator('.property-specs li').count() !== 3) throw new Error('Missing comparable property facts');
+  }
   await page.getByRole('button', { name: 'Casas', exact: true }).click();
   if (await page.locator('[data-property]:visible').count() !== 1) throw new Error('House filter failed');
   if (!(await typeSelect.innerText()).includes('Casa')) throw new Error('Select label did not sync with property tabs');
   const single = await page.locator('[data-property]:visible').evaluate(card => ({
     card: card.getBoundingClientRect().toJSON(), photo: card.querySelector('.property-photo').getBoundingClientRect().toJSON(), info: card.querySelector('.property-info').getBoundingClientRect().toJSON(),
   }));
-  if (single.photo.right > single.info.left + 2 || single.card.width < 1200) throw new Error('Single result layout is not balanced');
+  if (Math.abs(single.card.width - originalCard.width) > 2 || Math.abs(single.card.height - originalCard.height) > 2 || single.info.top < single.photo.bottom - 2) throw new Error('Filtering must preserve card dimensions and structure');
   await page.locator('#propiedades').screenshot({ path: 'scripts/paulazzo-houses.jpg' });
   await page.getByRole('button', { name: 'Departamentos', exact: true }).click();
   if (await page.locator('[data-property]:visible').count() !== 2) throw new Error('Apartment filter failed');
   const two = await page.locator('[data-property]:visible').evaluateAll(cards => cards.map(card => card.getBoundingClientRect().toJSON()));
-  if (Math.abs(two[0].width - two[1].width) > 2 || Math.abs(two[0].top - two[1].top) > 2) throw new Error('Two results must have equal columns');
+  if (two.some(card => Math.abs(card.width - originalCard.width) > 2) || Math.abs(two[0].top - two[1].top) > 2) throw new Error('Filtering must preserve column widths');
   await page.locator('#propiedades').screenshot({ path: 'scripts/paulazzo-apartments.jpg' });
   await page.getByRole('button', { name: 'Limpiar filtros' }).click();
   await page.locator('#propiedades').screenshot({ path: 'scripts/paulazzo-all-properties.jpg' });

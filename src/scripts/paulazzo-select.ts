@@ -1,8 +1,9 @@
 // Progressive enhancement: native selects remain the form's source of truth.
 const controls: { close: () => void }[] = [];
-document.querySelectorAll<HTMLSelectElement>('#property-search .search-field select').forEach(select => {
+document.querySelectorAll<HTMLSelectElement>('#property-search .search-field select, #contact-form .contact-select select').forEach(select => {
   const field = select.parentElement!;
   const name = select.name;
+  const prefix = select.form?.id === 'contact-form' ? 'contact' : 'search';
   const options = [...select.options];
   let active = select.selectedIndex;
   let typeahead = '';
@@ -15,18 +16,18 @@ document.querySelectorAll<HTMLSelectElement>('#property-search .search-field sel
   trigger.setAttribute('role', 'combobox');
   trigger.setAttribute('aria-haspopup', 'listbox');
   trigger.setAttribute('aria-expanded', 'false');
-  trigger.setAttribute('aria-controls', `search-${name}-options`);
-  trigger.setAttribute('aria-labelledby', `search-${name}-label search-${name}-value`);
-  trigger.innerHTML = `<span id="search-${name}-value"></span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  trigger.setAttribute('aria-controls', `${prefix}-${name}-options`);
+  trigger.setAttribute('aria-labelledby', `${prefix}-${name}-label ${prefix}-${name}-value`);
+  trigger.innerHTML = `<span id="${prefix}-${name}-value"></span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const list = document.createElement('ul');
   list.className = 'select-options';
-  list.id = `search-${name}-options`;
+  list.id = `${prefix}-${name}-options`;
   list.setAttribute('role', 'listbox');
-  list.setAttribute('aria-labelledby', `search-${name}-label`);
+  list.setAttribute('aria-labelledby', `${prefix}-${name}-label`);
   list.hidden = true;
   const items = options.map((option, index) => {
     const item = document.createElement('li');
-    item.id = `search-${name}-option-${index}`;
+    item.id = `${prefix}-${name}-option-${index}`;
     item.setAttribute('role', 'option');
     item.textContent = option.textContent;
     item.addEventListener('pointermove', () => highlight(index));

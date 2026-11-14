@@ -5,20 +5,19 @@ const { solid = false, home = '' } = Astro.props;
 <header class:list={["site-header", "container", { "detail-header": solid }]}>
         <a class="brand" href={`${home}#inicio`} aria-label="Belén Paulazzo Inmobiliaria, inicio"><img src="/paulazzo/logo.png" width="387" height="85" alt="Belén Paulazzo Inmobiliaria" /></a>
         <nav class="desktop-nav" aria-label="Navegación principal"><a href={`${home}#propiedades`}>Propiedades</a><a href={`${home}#nosotros`}>La inmobiliaria</a><a href={`${home}#propietarios`}>Soy propietario</a></nav>
-        <a class="header-contact" href={`${home}#contacto`}>Conversemos <span aria-hidden="true">↗</span></a>
+        <a class="header-contact" href={`${home}#contacto`}>Conversemos <span class="action-arrow" aria-hidden="true">↗</span></a>
         <details class="mobile-menu">
           <summary aria-controls="paulazzo-mobile-navigation" aria-expanded="false"><span class="menu-label">Menú</span><span class="menu-close-label">Cerrar</span><span class="menu-icon" aria-hidden="true"></span></summary>
           <div class="mobile-menu-panel" id="paulazzo-mobile-navigation">
             <img class="mobile-menu-logo" src="/paulazzo/logo.png" width="387" height="85" alt="Belén Paulazzo Inmobiliaria" />
             <nav aria-label="Navegación móvil">
-              <a href={`${home}#propiedades`}>Propiedades <span aria-hidden="true">↗</span></a>
-              <a href={`${home}#nosotros`}>La inmobiliaria <span aria-hidden="true">↗</span></a>
-              <a href={`${home}#propietarios`}>Soy propietario <span aria-hidden="true">↗</span></a>
+              <a href={`${home}#propiedades`}>Propiedades <span class="action-arrow" aria-hidden="true">↗</span></a>
+              <a href={`${home}#nosotros`}>La inmobiliaria <span class="action-arrow" aria-hidden="true">↗</span></a>
+              <a href={`${home}#propietarios`}>Soy propietario <span class="action-arrow" aria-hidden="true">↗</span></a>
             </nav>
             <div class="mobile-menu-contact">
               <p>Tu próximo lugar, en Carlos Paz.</p>
-              <a class="button dark" href={`${home}#contacto`}>Conversemos <span aria-hidden="true">↗</span></a>
-              <a class="mobile-menu-phone" href="tel:+543541336769">3541 336769</a>
+              <a class="button dark" href={`${home}#contacto`}>Conversemos <span class="action-arrow" aria-hidden="true">↗</span></a>
             </div>
           </div>
         </details>

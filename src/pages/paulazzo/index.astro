@@ -2,6 +2,7 @@
 import '../../styles/paulazzo.css';
 import PaulazzoHeader from '../../components/PaulazzoHeader.astro';
 import PaulazzoFooter from '../../components/PaulazzoFooter.astro';
+import PaulazzoIcon from '../../components/PaulazzoIcon.astro';
 import '../../styles/paulazzo-refinements.css';
 import '../../styles/paulazzo-search.css';
 import '../../styles/paulazzo-brand.css';
@@ -29,57 +30,73 @@ import { properties } from '../../data/paulazzo';
       <PaulazzoHeader />
       <main id="contenido">
         <section class="hero container" aria-labelledby="hero-title">
-          <div class="hero-location"><span class="location-mark" aria-hidden="true"></span> Villa Carlos Paz, Córdoba</div>
           <h1 id="hero-title"><span>Tu próximo lugar</span><br /><span>está acá.</span></h1>
           <div class="hero-bottom"><p>Una casa. Un proyecto. Otra forma de vivir.<br />Te acompañamos a encontrar la tuya.</p><a class="hero-explore" href="#propiedades">Explorá las propiedades <span aria-hidden="true">↓</span></a></div>
           <form class="property-search" id="property-search" action="#propiedades">
-            <fieldset class="operation-options"><legend>¿Qué estás buscando?</legend><label><input type="radio" name="operation" value="venta" checked /><span>Comprar</span></label><label><input type="radio" name="operation" value="alquiler" /><span>Alquilar</span></label></fieldset>
+            <fieldset class="operation-options"><label><input type="radio" name="operation" value="venta" checked /><span>Comprar</span></label><label><input type="radio" name="operation" value="alquiler" /><span>Alquilar</span></label></fieldset>
             <div class="search-field"><span id="search-type-label">Tipo de propiedad</span><select name="type" aria-label="Tipo de propiedad"><option value="">Cualquier tipo</option><option value="casa">Casa</option><option value="departamento">Departamento</option><option value="terreno">Terreno</option></select></div>
             <div class="search-field"><span id="search-zone-label">¿En qué zona?</span><select name="zone" aria-label="Zona"><option value="">Todo Carlos Paz</option><option value="santa-rita">Santa Rita</option><option value="centro">Centro</option><option value="cibeles">Paseo Cibeles</option></select></div>
             <button class="search-submit" type="submit">Encontrar mi lugar <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.6"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="1.6"/></svg></button>
           </form>
         </section>
       </main>
-      <div class="hero-caption">Un lugar para vivirlo. Una decisión para acompañarte.</div>
     </div>
 
     <div class="landing-content">
-      <section class="intro container" id="nosotros" aria-labelledby="intro-title">
-        <div class="intro-signature"><span class="small-mark" aria-hidden="true">↗</span><p>Belén Paulazzo<br /><span>Inmobiliaria · MP CPI 6166</span></p></div>
-        <div><h2 id="intro-title">Conocer el lugar.<br />Entender a las personas.</h2><p class="intro-copy">Hay decisiones que cambian tu día a día. Por eso, antes de hablar de propiedades, queremos escucharte. Te acompañamos en la compra, venta o alquiler con atención personal y claridad en cada paso.</p><a class="text-link" href="#contacto">Contanos qué estás imaginando <span aria-hidden="true">↗</span></a></div>
-      </section>
-
       <section class="properties-section container" id="propiedades" aria-labelledby="properties-title">
-        <div class="section-heading"><div><p class="section-note">Elegí cómo querés vivir</p><h2 id="properties-title">Lugares que abren<br />nuevas posibilidades.</h2></div><a class="text-link" href={`${official}/tienda-de-propiedades/`} target="_blank" rel="noopener noreferrer">Ver catálogo completo <span aria-hidden="true">↗</span></a></div>
+        <div class="section-heading"><div><p class="section-note">Casas y departamentos en venta</p><h2 id="properties-title">Propiedades destacadas.</h2></div><a class="text-link" href={`${official}/tienda-de-propiedades/`} target="_blank" rel="noopener noreferrer">Ver catálogo completo <span class="action-arrow" aria-hidden="true">↗</span></a></div>
         <div class="property-toolbar"><div class="property-tabs" role="group" aria-label="Filtrar propiedades"><button type="button" data-filter="" aria-pressed="true">Todas <span aria-hidden="true">3</span></button><button type="button" data-filter="casa" aria-pressed="false">Casas <span aria-hidden="true">1</span></button><button type="button" data-filter="departamento" aria-pressed="false">Departamentos <span aria-hidden="true">2</span></button></div><div class="property-results"><span id="results-count" role="status" aria-live="polite" aria-atomic="true">3 propiedades en venta</span><button id="clear-filters" type="button" hidden>Limpiar filtros <span aria-hidden="true">×</span></button></div></div>
         <div class="properties-grid" data-result-count="3">
           {properties.map((property, index) => <article class="property-card" data-property data-type={property.type} data-zone={property.zone}>
-            <a class="property-photo" href={property.path} aria-label={`Ver ficha de ${property.title}`}><img src={`/paulazzo/${property.image}`} alt={property.alt} width={index === 0 ? '1672' : '941'} height={index === 0 ? '941' : '1672'} loading="lazy" /><span class="property-badge">En venta</span><span class="property-photo-arrow" aria-hidden="true">↗</span></a>
-            <div class="property-info"><p class="property-location">{property.location}</p><h3><a href={property.path}>{property.title}</a></h3><p class="property-details">{property.detail}</p><p class="property-description">{property.description}</p><div class="property-price"><div><span class="price-label">Precio de venta</span><strong>{property.price}</strong></div><a href={property.path}>Ver propiedad <span aria-hidden="true">↗</span></a></div></div>
+            <a class="property-photo" href={property.path} aria-label={`Ver ficha de ${property.title}`}><img src={`/paulazzo/${property.image}`} alt={property.alt} width={index === 0 ? '1672' : '941'} height={index === 0 ? '941' : '1672'} loading="lazy" /><span class="property-badge">En venta</span></a>
+            <div class="property-info"><p class="property-location"><PaulazzoIcon name="location" />{property.location}</p><h3><a href={property.path}>{property.title}</a></h3><ul class="property-specs" aria-label="Características principales">
+              <li tabindex="0" data-hint={property.type === 'casa' ? 'Superficie cubierta' : 'Superficie publicada'}><PaulazzoIcon name="area" /><div><strong>{property.area}</strong>{property.type === 'casa' && <span class="property-area-note">cubiertos</span>}<span class="property-sr-only">{property.type === 'casa' ? ' de superficie cubierta' : ' de superficie publicada'}</span></div></li>
+              <li tabindex="0" data-hint={property.bedrooms === '1' ? 'Dormitorio' : 'Dormitorios'}><PaulazzoIcon name="bed" /><strong>{property.bedrooms}</strong><span class="property-sr-only">{property.bedrooms === '1' ? ' dormitorio' : ' dormitorios'}</span></li>
+              <li tabindex="0" data-hint={property.bathrooms === '1' ? 'Baño' : 'Baños'}><PaulazzoIcon name="bath" /><strong>{property.bathrooms}</strong><span class="property-sr-only">{property.bathrooms === '1' ? ' baño' : ' baños'}</span></li>
+            </ul><div class="property-price"><strong>{property.price}</strong><a href={property.path}>Ver propiedad <span class="action-arrow" aria-hidden="true">↗</span></a></div></div>
           </article>)}
         </div>
-        <div class="search-empty" id="search-empty" hidden><h3>Tu búsqueda puede empezar con una charla.</h3><p>No hay coincidencias en esta selección. Contanos qué necesitás o explorá el catálogo de Paulazzo.</p><div><button class="button dark" id="reset-search" type="button">Ver la selección completa</button><a class="text-link" href={`${official}/tienda-de-propiedades/`} target="_blank" rel="noopener noreferrer">Ir al catálogo <span aria-hidden="true">↗</span></a></div></div>
-        <p class="listing-note">Selección tomada del catálogo de Paulazzo. Los precios y la disponibilidad deben confirmarse con la inmobiliaria.</p>
+        <div class="search-empty" id="search-empty" hidden><h3>No encontramos propiedades con esos filtros.</h3><p>No hay coincidencias en esta selección. Contanos qué necesitás o explorá el catálogo de Paulazzo.</p><div><button class="button dark" id="reset-search" type="button">Ver la selección completa</button><a class="text-link" href={`${official}/tienda-de-propiedades/`} target="_blank" rel="noopener noreferrer">Ir al catálogo <span class="action-arrow" aria-hidden="true">↗</span></a></div></div>
+      </section>
+
+      <section class="intro container about-banner" id="nosotros" aria-labelledby="intro-title">
+        <div class="intro-brand">
+          <img src="/paulazzo/logo.png" width="387" height="85" alt="Belén Paulazzo Inmobiliaria" loading="lazy" />
+          <p>Matrícula profesional <strong>MP CPI 6166</strong></p>
+        </div>
+        <div class="intro-main">
+          <h2 id="intro-title">Tu inmobiliaria en Carlos Paz.</h2>
+          <p class="intro-copy">Asesoramiento en la compra, venta y alquiler de propiedades, con atención personalizada durante todo el proceso.</p>
+        </div>
+        <div class="intro-footer">
+          <div class="intro-office"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg><p>José Ingenieros 66<span>Villa Carlos Paz, Córdoba</span></p></div>
+          <div class="intro-actions">
+            <a class="button dark" href={whatsapp} target="_blank" rel="noopener noreferrer">Consultar por WhatsApp <span class="action-arrow" aria-hidden="true">↗</span></a>
+            <a class="button intro-location" href="https://maps.google.com/?q=Jose+Ingenieros+66+Villa+Carlos+Paz+Argentina" target="_blank" rel="noopener noreferrer">Cómo llegar <span class="action-arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
       </section>
 
       <section class="place-section" aria-labelledby="place-title">
-        <div class="place-image"><img src="/paulazzo/carlos-paz-6.webp" alt="Veleros en el lago San Roque con las sierras de Córdoba al fondo." width="1200" height="797" loading="lazy" /><span>El lago, las sierras y todo lo que viene.</span></div>
-        <div class="place-copy"><p class="section-note">Nuestro lugar en el mundo</p><h2 id="place-title">La ciudad cerca.<br />El paisaje, siempre.</h2><p>El paseo junto al lago. Un café en el centro. Las sierras como horizonte. Carlos Paz tiene muchas formas de sentirse en casa. Encontrá la que va con vos.</p><a class="text-link" href="#propiedades">Buscá tu lugar en Carlos Paz <span aria-hidden="true">↗</span></a><div class="place-coordinates"><span>Villa Carlos Paz</span><span>Valle de Punilla · Córdoba</span></div></div>
+        <div class="place-image"><img src="/paulazzo/carlos-paz-6.webp" alt="Veleros en el lago San Roque con las sierras de Córdoba al fondo." width="1200" height="797" loading="lazy" /><span>Lago San Roque · Villa Carlos Paz</span></div>
+        <div class="place-copy"><p class="section-note">Nuestro lugar en el mundo</p><h2 id="place-title">La ciudad cerca. El paisaje, siempre.</h2><p>El paseo junto al lago. Un café en el centro. Las sierras como horizonte. Carlos Paz tiene muchas formas de sentirse en casa. Encontrá la que va con vos.</p><a class="text-link" href="#propiedades">Buscá tu lugar en Carlos Paz <span class="action-arrow" aria-hidden="true">↗</span></a><div class="place-coordinates"><span>Villa Carlos Paz</span><span>Valle de Punilla · Córdoba</span></div></div>
       </section>
 
       <section class="owners-section container" id="propietarios" aria-labelledby="owners-title">
-        <div class="owners-heading"><p class="section-note">Para propietarios</p><h2 id="owners-title">El próximo comienzo<br />puede ser el tuyo.</h2><p>Si estás pensando en vender o alquilar, hablemos de tu propiedad y de lo que querés lograr.</p><a class="button dark" href="#contacto" data-interest="Vender mi propiedad">Quiero ofrecer mi propiedad <span aria-hidden="true">↗</span></a></div>
-        <div class="owner-services"><article><svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="m4 15 12-10 12 10v13H4V15Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 28V17h8v11M11 8V4H6v8" stroke="currentColor" stroke-width="1.3"/></svg><div><h3>Tu propiedad, bien presentada.</h3><p>Una propuesta clara para que quienes buscan puedan conocer sus espacios y posibilidades.</p></div></article><article><svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><circle cx="13" cy="13" r="9" stroke="currentColor" stroke-width="1.3"/><path d="m20 20 8 8M8 13h10M13 8v10" stroke="currentColor" stroke-width="1.3"/></svg><div><h3>Una mirada sobre tu objetivo.</h3><p>Comprar, vender o alquilar requiere entender tus tiempos, tus necesidades y el contexto.</p></div></article><article><svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="M5 6h22v16H16l-7 6v-6H5V6Z" stroke="currentColor" stroke-width="1.3"/><path d="M10 12h12M10 17h8" stroke="currentColor" stroke-width="1.3"/></svg><div><h3>Un trato de persona a persona.</h3><p>Asesoramiento personalizado para conversar cada paso y tomar decisiones con información.</p></div></article></div>
+        <div class="owners-heading"><p class="section-note">Para propietarios</p><h2 id="owners-title">¿Querés vender o alquilar tu propiedad?</h2><p>Contanos dónde está, sus características y qué operación querés hacer para recibir asesoramiento.</p><a class="button dark" href="#contacto" data-interest="Vender mi propiedad">Quiero ofrecer mi propiedad <span class="action-arrow" aria-hidden="true">↗</span></a></div>
+        <div class="owner-services"><article><svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="m4 15 12-10 12 10v13H4V15Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 28V17h8v11M11 8V4H6v8" stroke="currentColor" stroke-width="1.3"/></svg><div><h3>Tu propiedad, bien presentada.</h3><p>Una propuesta clara para que quienes buscan puedan conocer sus espacios y posibilidades.</p></div></article><article><svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><circle cx="13" cy="13" r="9" stroke="currentColor" stroke-width="1.3"/><path d="m20 20 8 8M8 13h10M13 8v10" stroke="currentColor" stroke-width="1.3"/></svg><div><h3>Asesoramiento para tu operación.</h3><p>Comprar, vender o alquilar requiere entender tus tiempos, tus necesidades y el contexto.</p></div></article><article><svg aria-hidden="true" viewBox="0 0 32 32" fill="none"><path d="M5 6h22v16H16l-7 6v-6H5V6Z" stroke="currentColor" stroke-width="1.3"/><path d="M10 12h12M10 17h8" stroke="currentColor" stroke-width="1.3"/></svg><div><h3>Acompañamiento en cada etapa.</h3><p>Asesoramiento personalizado para conversar cada paso y tomar decisiones con información.</p></div></article></div>
       </section>
 
-      <section class="contact-section" id="contacto" aria-labelledby="contact-title"><div class="container contact-grid"><div class="contact-copy"><p class="section-note">Hablemos de lo que viene</p><h2 id="contact-title">No hace falta tener<br />todo decidido.</h2><p>Una idea, una pregunta o una propiedad.<br />Empezamos por ahí.</p><a class="contact-phone" href="tel:+543541336769">3541 336769 <span aria-hidden="true">↗</span></a><a class="contact-address" href="https://maps.google.com/?q=Jose+Ingenieros+66+Villa+Carlos+Paz+Argentina" target="_blank" rel="noopener noreferrer">José Ingenieros 66<br />Villa Carlos Paz, Córdoba <span aria-hidden="true">↗</span></a></div>
-        <form class="contact-form" id="contact-form"><label>¿Cómo te llamás?<input name="name" autocomplete="name" placeholder="Tu nombre" required maxlength="100" /></label><label>¿Qué te gustaría hacer?<select name="interest" id="contact-interest"><option>Comprar una propiedad</option><option>Alquilar una propiedad</option><option>Vender mi propiedad</option><option>Alquilar mi propiedad</option><option>Hacer una consulta</option></select></label><label>Contanos un poco más<textarea name="message" rows="3" placeholder="La zona que te gusta, lo que necesitás, lo que imaginás…" required maxlength="1500"></textarea></label><button class="button light" type="submit">Continuar en WhatsApp <span aria-hidden="true">↗</span></button><p class="form-note">Podés revisar el mensaje en WhatsApp antes de enviarlo.</p><a class="whatsapp-fallback" id="whatsapp-fallback" href={whatsapp} target="_blank" rel="noopener noreferrer" hidden>Abrir mi consulta en WhatsApp ↗</a></form>
+      <section class="contact-section" id="contacto" aria-labelledby="contact-title"><div class="container contact-grid"><div class="contact-copy"><p class="section-note">Contactá a Paulazzo</p><h2 id="contact-title">Consultá por una propiedad o contanos qué buscás.</h2><p>Escribinos directamente o completá el formulario para preparar tu consulta.</p><a class="contact-phone" href={whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Consultar por WhatsApp al 3541 336769">3541 336769 <span class="action-arrow" aria-hidden="true">↗</span></a><a class="contact-address" href="https://maps.google.com/?q=Jose+Ingenieros+66+Villa+Carlos+Paz+Argentina" target="_blank" rel="noopener noreferrer">José Ingenieros 66<br />Villa Carlos Paz, Córdoba <span class="action-arrow" aria-hidden="true">↗</span></a></div>
+        <form class="contact-form" id="contact-form"><label>¿Cómo te llamás?<input name="name" autocomplete="name" placeholder="Tu nombre" required maxlength="100" /></label><div class="contact-select"><span id="contact-interest-label">¿Qué te gustaría hacer?</span><select name="interest" id="contact-interest" aria-labelledby="contact-interest-label"><option>Comprar una propiedad</option><option>Alquilar una propiedad</option><option>Vender mi propiedad</option><option>Alquilar mi propiedad</option><option>Hacer una consulta</option></select></div><label>Contanos un poco más<textarea name="message" rows="3" placeholder="La zona que te gusta, lo que necesitás, lo que imaginás…" required maxlength="1500"></textarea></label><button class="button light" type="submit">Continuar en WhatsApp <span class="action-arrow" aria-hidden="true">↗</span></button><p class="form-note">Podés revisar el mensaje en WhatsApp antes de enviarlo.</p><a class="whatsapp-fallback" id="whatsapp-fallback" href={whatsapp} target="_blank" rel="noopener noreferrer" hidden>Abrir mi consulta en WhatsApp ↗</a></form>
       </div></section>
 
       <PaulazzoFooter />
     </div>
     <script>
       import '../../scripts/paulazzo-select';
+      import '../../scripts/paulazzo-parallax';
+      import '../../scripts/paulazzo-reveal';
       const search = document.querySelector<HTMLFormElement>('#property-search')!;
       const cards = [...document.querySelectorAll<HTMLElement>('[data-property]')];
       const filterButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
@@ -114,7 +131,9 @@ import { properties } from '../../data/paulazzo';
       document.querySelector('#reset-search')?.addEventListener('click', () => { search.reset(); applyFilters(); });
       clearFilters.addEventListener('click', () => { search.reset(); applyFilters(); });
       document.querySelectorAll<HTMLAnchorElement>('[data-interest]').forEach(link => link.addEventListener('click', () => {
-        document.querySelector<HTMLSelectElement>('#contact-interest')!.value = link.dataset.interest!;
+        const interest = document.querySelector<HTMLSelectElement>('#contact-interest')!;
+        interest.value = link.dataset.interest!;
+        interest.dispatchEvent(new Event('change', { bubbles: true }));
       }));
       const contact = document.querySelector<HTMLFormElement>('#contact-form')!;
       contact.addEventListener('submit', event => {
